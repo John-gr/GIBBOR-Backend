@@ -55,7 +55,7 @@ sinks:
     method: POST
     headers:
       Content-Type: application/json
-      # x-goldsky-signature: ${GOLDSKY_WEBHOOK_SECRET}
+      x-goldsky-signature: ${GOLDSKY_WEBHOOK_SECRET}
     batch_size: 1
     flush_interval: 1s
     retry_config:
