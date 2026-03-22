@@ -7,7 +7,7 @@ sources:
   - name: soroban-mainnet
     type: soroban
     network: mainnet
-    # Alternatively use testnet for development
+    # For development use testnet:
     # network: testnet
 
 models:
@@ -25,12 +25,10 @@ indexings:
   - name: panic-alert-indexer
     description: Indexes PanicAlert events from GIBBOR smart contract
     source: soroban-mainnet
-    # Replace with actual GIBBOR contract address on Soroban
-    contract_address: "CDOLLAR...GIBBOR"  # Example format, replace with real contract ID
+    # Replace with the actual GIBBOR contract address on Soroban
+    contract_address: "CDOLLAR...GIBBOR"
     event_filter:
       - event_name: PanicAlert
-        # Optional: filter by specific topics if needed
-        # topics: ["PanicAlert"]
     mapping:
       type: sql
       sql: |
@@ -53,33 +51,22 @@ indexings:
 sinks:
   - name: webhook-sink
     type: webhook
-    url: http://localhost:3000/webhook/goldsky  # Will be updated with actual domain
+    url: http://localhost:3000/webhook/goldsky
     method: POST
     headers:
       Content-Type: application/json
-      # Add authentication header if needed
-      # Authorization: Bearer ${GOLDSKY_WEBHOOK_SECRET}
+      # x-goldsky-signature: ${GOLDSKY_WEBHOOK_SECRET}
     batch_size: 1
-    flush_interval: 1s  # Send events immediately for real-time alerts
+    flush_interval: 1s
     retry_config:
-      max_retries: 5      backoff_factor: 2
+      max_retries: 5
+      backoff_factor: 2
       max_interval: 60s
 
-# Optional: Add database sink for local persistence
+  # Optional: persist events to PostgreSQL
   - name: postgres-sink
     type: postgres
     connection_string: ${POSTGRES_CONNECTION_STRING}
     table_name: panic_alert_events
     batch_size: 100
     flush_interval: 10s
-</task_progress>
-- [x] Initialize Node.js project- [x] Install required dependencies
-- [x] Create project directory structure
-- [x] Create Goldsky configuration file
-- [ ] Create webhook endpoint
-- [ ] Implement emergency response logic
-- [ ] Set up database for evidence storage
-- [ ] Add security validation- [ ] Implement SMS notification service
-- [ ] Create server entry point
-</task_progress>
-</write_to_file>

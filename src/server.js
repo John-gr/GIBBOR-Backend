@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3000;
 app.use(helmet());
 app.use(cors());
 app.use(morgan('combined'));
-app.use(bodyParser.json({ limit: '10mb' })); // Increase limit for media files
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // Routes
@@ -47,14 +47,3 @@ const server = app.listen(PORT, () => {
 });
 
 module.exports = { app, server };
-</task_progress>
-- [x] Initialize Node.js project
-- [x] Install required dependencies
-- [x] Create project directory structure
-- [x] Create Goldsky configuration file
-- [x] Create webhook endpoint- [ ] Implement emergency response logic
-- [ ] Set up database for evidence storage
-- [ ] Add security validation
-- [ ] Implement SMS notification service
-- [ ] Create server entry point</task_progress>
-</write_to_file>
