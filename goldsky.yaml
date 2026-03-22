@@ -4,11 +4,11 @@ description: Indexer for GIBBOR security system events on Soroban
 namespace: gibbor
 
 sources:
-  - name: soroban-mainnet
+  - name: soroban-testnet
     type: soroban
-    network: mainnet
-    # For development use testnet:
-    # network: testnet
+    network: testnet
+    # Switch to mainnet for production:
+    # network: mainnet
 
 models:
   - name: PanicAlertEvent
@@ -24,7 +24,7 @@ models:
 indexings:
   - name: panic-alert-indexer
     description: Indexes PanicAlert events from GIBBOR smart contract
-    source: soroban-mainnet
+    source: soroban-testnet
     # Replace with the actual GIBBOR contract address on Soroban
     contract_address: "CDOLLAR...GIBBOR"
     event_filter:
@@ -63,10 +63,4 @@ sinks:
       backoff_factor: 2
       max_interval: 60s
 
-  # Optional: persist events to PostgreSQL
-  - name: postgres-sink
-    type: postgres
-    connection_string: ${POSTGRES_CONNECTION_STRING}
-    table_name: panic_alert_events
-    batch_size: 100
-    flush_interval: 10s
+  # Events are persisted to MySQL via the webhook handler on the Node.js server
